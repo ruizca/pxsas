@@ -21,4 +21,5 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: POSIX :: Linux",
     ],
+    python_requires='>=3.6',
 )
