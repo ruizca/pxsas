@@ -8,12 +8,10 @@ setup(
     version="1.0",
     author="Angel Ruiz",
     author_email="angel.ruizca@gmail.com",
-    description="Python wrapper for XMM-Newton Science Analysis System (SAS)",
+    description="Python wrapper for the XMM-Newton Science Analysis System (SAS)",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     url="https://github.com/ruizca/pysas",
-    #install_requires=["astropy", "numpy", "astropy-healpix", "regions"],
-    #extras_require={"plot_map": ["matplotlib", "healpy"]},
     py_modules=["pysas"],
     classifiers=[
         "Development Status :: 4 - Beta",
