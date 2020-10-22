@@ -8,7 +8,8 @@ import os
 import logging
 import subprocess
 from pathlib import Path
-    
+
+
 if "SAS_DIR" not in os.environ:
     raise ImportError("SAS has not been initialized in your system!")
 
@@ -32,7 +33,7 @@ def _run_command(task: str, args):
         output = subprocess.check_output([task] + args, stderr=subprocess.STDOUT)
         output = output.decode()
         logging.info(output)
-        
+
     except subprocess.CalledProcessError as e:
         logging.error(f"Task {task} failed with status {e.returncode}")
         logging.error(e.output.decode())
@@ -57,7 +58,7 @@ def sasversion(full=False):
     """
     Returns the SAS version initialized in the system.
     """
-    output = run("sasversion", "-v")    
+    output = run("sasversion", "-v")
     full_version = output.split("-")[2]
 
     if full:

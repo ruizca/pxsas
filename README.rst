@@ -1,15 +1,15 @@
-pysas
+pxsas
 =====
 .. inclusion-marker-main-readme
 
-``pysas`` is a simple Python 3 wrapper for the 
+``pxsas`` is a simple Python 3 wrapper for the 
 XMM-*Newton* Science Analysis System (`SAS`_). 
 
 Dependencies
 ------------
 
-``pysas`` needs a working SAS `installation`_. SAS has to be initialized
-before importing ``pysas`` into your python environment.
+``pxsas`` needs a working SAS `installation`_. SAS has to be initialized
+before importing ``pxsas`` into your python environment.
 
 *A note about SAS 17.0.0 and above*
 
@@ -24,29 +24,29 @@ initialization like this (in bash)::
 Installation
 ------------
 
-``pysas`` can be easily installed using ``pip``::
+``pxsas`` can be easily installed using ``pip``::
 
-    pip install pysas
+    pip install pxsas
 
 Example
 -------
-A simple example of using ``pysas``::
+A simple example of using ``pxsas``::
 
     import os
-    import pysas
+    import pxsas
 
-    # Show SAS version used by pysas
-    pysas.sasversion(full=True)
+    # Show SAS version used by pxsas
+    pxsas.sasversion(full=True)
 
     # Show the version of the task 'evselect'
-    pysas.run("evselect", "-v")
+    pxsas.run("evselect", "-v")
 
     # Create a Calibration Index File for a given observation
     os.environ["SAS_ODF"] = "/path/to/observation/ODF"
-    pysas.run("cifbuild", calindexset="ccf.cif")
+    pxsas.run("cifbuild", calindexset="ccf.cif")
 
-The output messages from the SAS tasks are capture through the python logging system. 
-If the task runs succesfully, ``pysas.run`` returns the output text as a string. If an
+The output messages from the SAS tasks are captured through the python logging system. 
+If the task runs succesfully, ``pxsas.run`` returns the output text as a string. If an
 error happens during execution, it returns ``None``.
 
 
