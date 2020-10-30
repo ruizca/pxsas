@@ -2,8 +2,8 @@ pxsas
 =====
 .. inclusion-marker-main-readme
 
-``pxsas`` is a simple Python 3 wrapper for the 
-XMM-*Newton* Science Analysis System (`SAS`_). 
+``pxsas`` is a simple Python 3 wrapper for the
+XMM-*Newton* Science Analysis System (`SAS`_).
 
 Dependencies
 ------------
@@ -13,8 +13,8 @@ before importing ``pxsas`` into your python environment.
 
 *A note about SAS 17.0.0 and above*
 
-Starting with version 17.0.0, the SAS installation procedure creates its own python 
-environment for running some tasks. This is the system's default python environment 
+Starting with version 17.0.0, the SAS installation procedure creates its own python
+environment for running some tasks. This is the system's default python environment
 after the initialization of SAS. You can install pxsas in this environment, but this
 is extremely NOT recomended. Instead, you can redefine your PATH after SAS
 initialization like this (in bash)::
@@ -37,12 +37,12 @@ A simple example of using ``pxsas``::
     >>> import pxsas
 
     >>> logging.getLogger().setLevel(logging.INFO)
-    
+
     # Show SAS version used by pxsas
     >>> pxsas.sasversion(full=True)
     INFO:root:Running sasversion -v
     INFO:root:sasversion (sasversion-1.3) [xmmsas_20190531_1155-18.0.0]
-    
+
     '18.0.0'
 
     # Show the version of the task 'evselect'
@@ -59,11 +59,11 @@ A simple example of using ``pxsas``::
     >>> pxsas.run("cifbuild", calindexset="ccf.cif", raise_error=False)
 
 
-The output messages from the SAS tasks are captured through the python logging system. 
-If the task runs succesfully, ``pxsas.run`` returns the output text as a string. By 
-default, if an error happens during execution, and exception is raised. If the keyword 
+The output messages from the SAS tasks are captured through the python logging system.
+If the task runs succesfully, ``pxsas.run`` returns the output text as a string. By
+default, if an error happens during execution, and exception is raised. If the keyword
 argument ``raise_error`` is set to False, then no exception is raised and it just returns
- ``None``.
+``None``.
 
 
 

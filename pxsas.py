@@ -41,7 +41,7 @@ def _run_command(task: str, args, raise_error=True):
         logging.error(f"Task {task} failed with status {e.returncode}")
         logging.error(e.output.decode())
         output = None
-        
+
         if raise_error:
             raise PxsasError("Error running SAS. Check log for details.")
 
