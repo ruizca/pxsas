@@ -14,6 +14,9 @@ if "SAS_DIR" not in os.environ:
     raise ImportError("SAS has not been initialized in your system!")
 
 
+class PxsasError(RuntimeError):
+    pass
+
 
 def _check_task(task: str):
     sasbin_dir = Path(os.environ["SAS_PATH"], "bin")
@@ -27,7 +30,7 @@ def _parse_arguments(args, kwargs):
     return list(args) + [f'{key}={value}' for key, value in kwargs.items()]
 
 
-def _run_command(task: str, args):
+def _run_command(task: str, args, raise_error=True):
     try:
         logging.info(f"Running {task} {' '.join(args)}")
         output = subprocess.check_output([task] + args, stderr=subprocess.STDOUT)
@@ -38,18 +41,21 @@ def _run_command(task: str, args):
         logging.error(f"Task {task} failed with status {e.returncode}")
         logging.error(e.output.decode())
         output = None
+        
+        if raise_error:
+            raise PxsasError("Error running SAS. Check log for details.")
 
     return output
 
 
-def run(task: str, *args, **kwargs):
+def run(task: str, *args, raise_error=True, **kwargs):
     """
     Wrapper for SAS tasks. 'task' must be the name of a SAS task, and kwargs
     contains all the parameters passed to the task, with the same name.
     """
     _check_task(task)
     args = _parse_arguments(args, kwargs)
-    output = _run_command(task, args)
+    output = _run_command(task, args, raise_error=raise_error)
 
     return output
 

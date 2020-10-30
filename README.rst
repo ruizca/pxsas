@@ -15,7 +15,7 @@ before importing ``pxsas`` into your python environment.
 
 Starting with version 17.0.0, the SAS installation procedure creates its own python 
 environment for running some tasks. This is the system's default python environment 
-after the initialization of SAS. You can install pysas in this environment, but this
+after the initialization of SAS. You can install pxsas in this environment, but this
 is extremely NOT recomended. Instead, you can redefine your PATH after SAS
 initialization like this (in bash)::
 
@@ -32,22 +32,38 @@ Example
 -------
 A simple example of using ``pxsas``::
 
-    import os
-    import pxsas
+    >>> import logging
+    >>> import os
+    >>> import pxsas
 
+    >>> logging.getLogger().setLevel(logging.INFO)
+    
     # Show SAS version used by pxsas
-    pxsas.sasversion(full=True)
+    >>> pxsas.sasversion(full=True)
+    INFO:root:Running sasversion -v
+    INFO:root:sasversion (sasversion-1.3) [xmmsas_20190531_1155-18.0.0]
+    
+    '18.0.0'
 
     # Show the version of the task 'evselect'
-    pxsas.run("evselect", "-v")
+    >>> pxsas.run("evselect", "-v")
 
     # Create a Calibration Index File for a given observation
-    os.environ["SAS_ODF"] = "/path/to/observation/ODF"
-    pxsas.run("cifbuild", calindexset="ccf.cif")
+    # Raise exception if the task fails
+    >>> os.environ["SAS_ODF"] = "/path/to/observation/ODF"
+    >> pxsas.run("cifbuild", calindexset="ccf.cif")
+
+    # Create a Calibration Index File for a given observation
+    # Returns None if the task fails
+    >>> os.environ["SAS_ODF"] = "/path/to/observation/ODF"
+    >>> pxsas.run("cifbuild", calindexset="ccf.cif", raise_error=False)
+
 
 The output messages from the SAS tasks are captured through the python logging system. 
-If the task runs succesfully, ``pxsas.run`` returns the output text as a string. If an
-error happens during execution, it returns ``None``.
+If the task runs succesfully, ``pxsas.run`` returns the output text as a string. By 
+default, if an error happens during execution, and exception is raised. If the keyword 
+argument `raise_error` is set to False, then no exception is raised and it just returns
+ ``None``.
 
 
 
