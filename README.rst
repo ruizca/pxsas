@@ -62,7 +62,7 @@ A simple example of using ``pxsas``::
 The output messages from the SAS tasks are captured through the python logging system. 
 If the task runs succesfully, ``pxsas.run`` returns the output text as a string. By 
 default, if an error happens during execution, and exception is raised. If the keyword 
-argument `raise_error` is set to False, then no exception is raised and it just returns
+argument ``raise_error`` is set to False, then no exception is raised and it just returns
  ``None``.
 
 
