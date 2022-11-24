@@ -9,6 +9,8 @@ import logging
 import subprocess
 from pathlib import Path
 
+logger = logging.getLogger(__name__)
+
 
 if "SAS_DIR" not in os.environ:
     raise ImportError("SAS has not been initialized in your system!")
@@ -30,16 +32,16 @@ def _parse_arguments(args, kwargs):
     return list(args) + [f'{key}={value}' for key, value in kwargs.items()]
 
 
-def _run_command(task: str, args, raise_error=True):
+def _run_command(task: str, args, level, raise_error):
     try:
-        logging.info(f"Running {task} {' '.join(args)}")
+        logger.log(level, "Running %s...", task)
         output = subprocess.check_output([task] + args, stderr=subprocess.STDOUT)
         output = output.decode()
-        logging.info(output)
+        logger.log(level, output)
 
     except subprocess.CalledProcessError as e:
-        logging.error(f"Task {task} failed with status {e.returncode}")
-        logging.error(e.output.decode())
+        logger.error(f"Task {task} failed with status {e.returncode}.")
+        logger.error(e.output.decode())
         output = None
 
         if raise_error:
@@ -48,14 +50,14 @@ def _run_command(task: str, args, raise_error=True):
     return output
 
 
-def run(task: str, *args, raise_error=True, **kwargs):
+def run(task: str, *args, verbosity_level=logging.INFO, raise_error=True, **kwargs):
     """
     Wrapper for SAS tasks. 'task' must be the name of a SAS task, and kwargs
     contains all the parameters passed to the task, with the same name.
     """
     _check_task(task)
     args = _parse_arguments(args, kwargs)
-    output = _run_command(task, args, raise_error=raise_error)
+    output = _run_command(task, args, verbosity_level, raise_error)
 
     return output
 
@@ -64,7 +66,7 @@ def sasversion(full=False):
     """
     Returns the SAS version initialized in the system.
     """
-    output = run("sasversion", "-v")
+    output = run("sasversion", "-v", verbosity_level=0)
     full_version = output.split("-")[2]
 
     if full:

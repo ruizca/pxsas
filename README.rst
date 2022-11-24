@@ -60,6 +60,14 @@ A simple example of using ``pxsas``::
 
 
 The output messages from the SAS tasks are captured through the python logging system.
+The messages are included at the logging level defined bt the parameter `verbosity_level`.
+For example:
+
+    >> pxsas.run("cifbuild", calindexset="ccf.cif", verbosity_level=logging.DEBUG)
+
+will include the output messages of the task as DEBUG messages. By default the logging level 
+is INFO. For not capturing the messages through the logging system, use `verbosity_level=0`.
+
 If the task runs succesfully, ``pxsas.run`` returns the output text as a string. By
 default, if an error happens during execution, and exception is raised. If the keyword
 argument ``raise_error`` is set to False, then no exception is raised and it just returns
