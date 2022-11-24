@@ -5,7 +5,7 @@ with open("README.rst", "r") as fh:
 
 setup(
     name="pxsas",
-    version="1.1",
+    version="1.2",
     author="Angel Ruiz",
     author_email="angel.ruizca@gmail.com",
     description="Python wrapper for the XMM-Newton Science Analysis System (SAS)",
